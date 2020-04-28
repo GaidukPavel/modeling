@@ -113,7 +113,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1585583204684</Id>
 					<Name><![CDATA[cores]]></Name>
-					<X>510</X><Y>290</Y>
+					<X>350</X><Y>480</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>false</PresentationFlag>
@@ -128,7 +128,7 @@
 				<Variable Class="PlainVariable">
 					<Id>1585583218720</Id>
 					<Name><![CDATA[memories]]></Name>
-					<X>510</X><Y>270</Y>
+					<X>350</X><Y>460</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>false</PresentationFlag>
@@ -245,10 +245,100 @@
 						</InitialValue>
 					</Properties>
 				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106045145</Id>
+					<Name><![CDATA[totalBigNumber]]></Name>
+					<X>240</X><Y>260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106047282</Id>
+					<Name><![CDATA[totalSmallNumber]]></Name>
+					<X>240</X><Y>300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[int]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106108941</Id>
+					<Name><![CDATA[totalBigTime]]></Name>
+					<X>390</X><Y>260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106131121</Id>
+					<Name><![CDATA[totalSmallTime]]></Name>
+					<X>390</X><Y>300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106143025</Id>
+					<Name><![CDATA[avgBigTime]]></Name>
+					<X>530</X><Y>260</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
+				<Variable Class="PlainVariable">
+					<Id>1588106153377</Id>
+					<Name><![CDATA[avgSmallTime]]></Name>
+					<X>530</X><Y>300</Y>
+					<Label><X>10</X><Y>0</Y></Label>
+					<PublicFlag>false</PublicFlag>
+					<PresentationFlag>true</PresentationFlag>
+					<ShowLabel>true</ShowLabel>
+					<Properties SaveInSnapshot="true" Constant="false" AccessType="public" StaticVariable="false">
+						<Type><![CDATA[double]]></Type>        
+						<InitialValue Class="CodeValue">
+							<Code><![CDATA[0]]></Code>
+						</InitialValue>
+					</Properties>
+				</Variable>
 				<Variable Class="Parameter">
 					<Id>1585646655200</Id>
 					<Name><![CDATA[MAX_CORES]]></Name>
-					<X>510</X><Y>210</Y>
+					<X>350</X><Y>400</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -272,7 +362,7 @@
 				<Variable Class="Parameter">
 					<Id>1585647152048</Id>
 					<Name><![CDATA[MAX_MEMORIES]]></Name>
-					<X>510</X><Y>240</Y>
+					<X>350</X><Y>430</Y>
 					<Label><X>10</X><Y>0</Y></Label>
 					<PublicFlag>false</PublicFlag>
 					<PresentationFlag>true</PresentationFlag>
@@ -894,6 +984,17 @@ average_queue_time = total_queue_time / queue_number;]]></Code>
 	if ((cores >= queue.getFirst().core) && (memories >= queue.getFirst().memory))
 		hold.unblock();
 agent.total_time = time() - agent.total_time;
+if (agent.size > 2504){
+	//BigTask
+	totalBigNumber++;
+	totalBigTime += agent.total_time;
+	avgBigTime = totalBigTime / totalBigNumber;
+}else{
+	//SmallTask
+	totalSmallNumber++;
+	totalSmallTime += agent.total_time;
+	avgSmallTime = totalSmallTime / totalSmallNumber;
+}
 total_time += agent.total_time;
 total_number++;
 average_total_time = total_time / total_number;
